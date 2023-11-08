@@ -10,12 +10,12 @@ component "mongodb Deployment\nContainer Port: 27017/TCP" as MongoDBDeployment <
 component "mongo-express Deployment\nContainer Port: 8081/TCP" as MongoExpressDeployment <<Deployment>>
 
 ' Define PersistentVolumeClaim
-component "mongo-data-pvc\nStorage: 1Gi" as MongoDataPVC <<PersistentVolumeClaim>>
+component "mongo-data-pvc\nStorage: 500Mi" as MongoDataPVC <<PersistentVolumeClaim>>
 
 ' Connections
-JsAppDeployment --> MongoDBService : uses
-MongoDBDeployment --> MongoDataPVC : mounts
-MongoExpressDeployment --> MongoDBService : connects to
+JsAppDeployment --> MongoDBService
+MongoDBDeployment --> MongoDataPVC : Claims and mounts
+MongoExpressDeployment --> MongoDBService
 
 ' Link Services to Deployments
 JsAppService --> JsAppDeployment
