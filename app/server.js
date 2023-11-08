@@ -29,6 +29,9 @@ let mongoUrlDocker = "mongodb://admin:password@host.docker.internal:27017";
 // Brug denne når du starter applikationen som Docker-container, som en del af docker-compose
 let mongoUrlDockerCompose = "mongodb://admin:password@mongodb";
 
+// Brug denne når du starter applikationen i Kubernetes
+let mongoK8sUrl = process.env.MONGO_URL; // "mongodb://admin:password@mongodb.default.svc.cluster.local:27017"; // "mongodb://admin:password@mongodb:27017";
+
 // Send disse indstillinger til mongo klientens forbindelsesanmodning for at undgå DeprecationWarning for den nuværende Server Discovery og Monitoring-motor
 let mongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
@@ -36,11 +39,12 @@ let mongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 let databaseName = "my-db";
 
 // Kommer an på deployment metode
-let mongoVersion = mongoUrlDockerCompose
+let mongoVersion = mongoK8sUrl //mongoUrlDockerCompose 
 
 app.post('/update-profile', function (req, res) {
   let userObj = req.body;
-
+  console.log('User profile updated');
+  console.log('Connecting to MongoDB at:', mongoUrl);
   MongoClient.connect(mongoVersion, mongoClientOptions, function (err, client) {
     if (err) throw err;
 

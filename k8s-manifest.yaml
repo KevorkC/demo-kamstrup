@@ -27,13 +27,14 @@ spec:
     spec:
       containers:
         - name: js-app
-          image: kevork/app:1.0
+          image: kevork/app:2.3
           ports:
             - containerPort: 3000
           env:
             - name: MONGO_URL
               value: "mongodb://admin:password@mongodb.default.svc.cluster.local:27017"
-              # value: "mongodb://admin:password@mongodb:27017"
+              # value: "mongodb://admin:password@mongodb:27017" # Default namespace
+              # value: "mongodb://admin:password@mongodb"
 ---
 apiVersion: v1
 kind: Service
