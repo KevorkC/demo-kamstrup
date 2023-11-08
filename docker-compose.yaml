@@ -1,8 +1,8 @@
 version: '3'
 services:
   frontend-app:
-    image: app:latest
-    # image: kevork/app:1.0
+    # image: app:latest # For lokale images
+    image: kevork/app:1.0
     restart: unless-stopped # Fortrækkes frem for "always"
     ports:
       - 3000:3000 # HOST:CONTAINER

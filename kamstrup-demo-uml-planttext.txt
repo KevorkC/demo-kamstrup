@@ -1,0 +1,25 @@
+@startuml
+' Define Services with appropriate details
+component "js-app Service\nPort: 3000/TCP" as JsAppService <<Service, LoadBalancer>>
+component "mongodb Service\nPort: 27017/TCP" as MongoDBService <<Service>>
+component "mongo-express Service\nPort: 8081/TCP" as MongoExpressService <<Service, LoadBalancer>>
+
+' Define Deployments
+component "js-app Deployment\nContainer Port: 3000/TCP" as JsAppDeployment <<Deployment>>
+component "mongodb Deployment\nContainer Port: 27017/TCP" as MongoDBDeployment <<Deployment>>
+component "mongo-express Deployment\nContainer Port: 8081/TCP" as MongoExpressDeployment <<Deployment>>
+
+' Define PersistentVolumeClaim
+component "mongo-data-pvc\nStorage: 1Gi" as MongoDataPVC <<PersistentVolumeClaim>>
+
+' Connections
+JsAppDeployment --> MongoDBService : uses
+MongoDBDeployment --> MongoDataPVC : mounts
+MongoExpressDeployment --> MongoDBService : connects to
+
+' Link Services to Deployments
+JsAppService --> JsAppDeployment
+MongoDBService --> MongoDBDeployment
+MongoExpressService --> MongoExpressDeployment
+
+@enduml
