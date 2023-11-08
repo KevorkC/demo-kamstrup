@@ -30,7 +30,7 @@ let mongoUrlDocker = "mongodb://admin:password@host.docker.internal:27017";
 let mongoUrlDockerCompose = "mongodb://admin:password@mongodb";
 
 // Brug denne når du starter applikationen i Kubernetes
-let mongoK8sUrl = process.env.MONGO_URL; // "mongodb://admin:password@mongodb.default.svc.cluster.local:27017"; // "mongodb://admin:password@mongodb:27017";
+let mongoK8sUrl = process.env.MONGO_URL;
 
 // Send disse indstillinger til mongo klientens forbindelsesanmodning for at undgå DeprecationWarning for den nuværende Server Discovery og Monitoring-motor
 let mongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
@@ -87,5 +87,6 @@ app.get('/get-profile', function (req, res) {
 
 app.listen(3000, function () {
   console.log("app listening on port 3000!");
+  console.log('MONGO_URL =', process.env.MONGO_URL)
 });
 
