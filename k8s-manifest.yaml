@@ -33,9 +33,6 @@ spec:
           env:
             - name: MONGO_URL
               value: "mongodb://admin:password@mongodb.default.svc.cluster.local:27017"
-              # value: "mongodb://admin:password@mongodb:27017" # Default namespace
-              # value: "mongodb://admin:password@mongodb"
-              # value: "mongodb://mongodb:27017"
 ---
 apiVersion: v1
 kind: Service
