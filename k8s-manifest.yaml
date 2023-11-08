@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
         - name: js-app
-          image: kevork/app:2.5
+          image: kevork/app:2.8
           ports:
             - containerPort: 3000
           env:
@@ -121,7 +121,7 @@ spec:
     spec:
       containers:
         - name: mongo-express
-          image: mongo-express #:1.0.0-alpha.4
+          image: mongo-express:1.0.0-alpha.4
           ports:
             - containerPort: 8081
           env:

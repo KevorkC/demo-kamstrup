@@ -36,15 +36,26 @@ let mongoK8sUrl = process.env.MONGO_URL;
 let mongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
 // "user-account" i demo med docker. "my-db" i demo med docker-compose
-let databaseName = "my-db";
+let databaseName = "user-account";
 
 // Kommer an på deployment metode
 let mongoVersion = mongoK8sUrl //mongoUrlDockerCompose 
 
 app.post('/update-profile', function (req, res) {
-  let userObj = req.body;
+  //
   console.log('User profile updated');
-  console.log('Connecting to MongoDB at:', mongoUrl);
+  console.log('Connecting to MongoDB at:', mongoVersion);
+  MongoClient.connect(mongoVersion, mongoClientOptions, function (err, client) {
+    if (err) {
+      console.error('Error connecting to MongoDB:', err);
+      throw err;
+    }
+    console.log('Connected to MongoDB');
+  });
+  //
+
+  let userObj = req.body;
+
   MongoClient.connect(mongoVersion, mongoClientOptions, function (err, client) {
     if (err) throw err;
 
